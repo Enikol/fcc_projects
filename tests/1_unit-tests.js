@@ -7,8 +7,12 @@
 */
 
 var chai = require('chai');
-var assert = chai.assert;
+var StockHandler = require('../controllers/Handler.js');
+/*
+var stockPrices = new StockHandler();
 
 suite('Unit Tests', function(){
 
-});
+//none requiered
+
+});*/

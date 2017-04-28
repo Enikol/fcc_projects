@@ -18,21 +18,7 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet.frameguard({ action: 'sameorigin' }));
-app.use(helmet.dnsPrefetchControl());
-app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
-
-//Sample front-end
-app.route('/b/:board/')
-  .get(function (req, res) {
-   console.log(req.params);
-    res.sendFile(process.cwd() + '/views/board.html');
-  });
-app.route('/b/:board/:threadid')
-  .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/thread.html');
-  });
-
+app.use(helmet.contentSecurityPolicy({directives:{defaultSrc: ["'self'"], styleSrc: ["'self'"]}}));
 //Index page (static HTML)
 app.route('/')
   .get(function (req, res) {
@@ -43,10 +29,7 @@ app.route('/')
 fccTestingRoutes(app);
 
 //Routing for API 
-apiRoutes(app);
-
-//Sample Front-end
-
+apiRoutes(app);  
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {
@@ -68,7 +51,7 @@ app.listen(process.env.PORT || 3000, function () {
           console.log('Tests are not valid:');
           console.log(error);
       }
-    }, 1500);
+    }, 3500);
   }
 });
 
